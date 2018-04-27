@@ -7,7 +7,7 @@
   user:
     name: "{{ bootstrap_user_fact['name'] }}"
     groups: "{{ bootstrap_user_fact['groups'] | default(omit)}}"
-    home: "{{ '/home/' + bootstrap_user_fact['name'] }}"
+    home: "{{  bootstrap_user_fact['home'] | default('/home/' + bootstrap_user_fact['name']) }}"
     state: "{{ bootstrap_user_fact['state'] | default('present') }}"
 
 - name: Set authorized keys for user
@@ -21,15 +21,15 @@
 - name: Create sudoers
   template:
     src: sudoers.d.jinja2
-    dest: "/etc/sudoers.d/ + {{ bootstrap_user_fact['name'] }}"
+    dest: "{{ '/etc/sudoers.d/' + bootstrap_user_fact['name'] }}"
     mode: 0440
     owner: root
     group: root
     validate: "/usr/sbin/visudo -cf %s"
-  when: not (bootstrap_user_fact['password_sudo'] | default(false)) | bool
+  when: not (bootstrap_user_fact['password_sudo'] | default(true)) | bool
 
 - name: Remove sudoers
   file:
-    path: "/etc/sudoers.d/{{ bootstrap_user_fact['name'] }}"
+    path: "{{ '/etc/sudoers.d/' + bootstrap_user_fact['name'] }}"
     state: absent
   when: (bootstrap_user_fact['password_sudo'] | default(true)) | bool

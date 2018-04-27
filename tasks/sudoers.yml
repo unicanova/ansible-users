@@ -1,4 +1,4 @@
- name: Create sudoers.d directory
+- name: Create sudoers.d directory
   file:
     path: /etc/sudoers.d
     owner: root
@@ -10,5 +10,5 @@
   lineinfile:
     dest: /etc/sudoers
     line: "#includedir /etc/sudoers.d"
-    state: "{{ bootstrap['sudoers_dir_state'] | default('present') }}"
+    state: "{{ sudoers_dir_state | default('present') }}"
     validate: "/usr/sbin/visudo -cf %s"

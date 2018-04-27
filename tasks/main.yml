@@ -2,3 +2,4 @@
 # tasks file for bootstrap
 - include: sudoers.yml
 - include: users.yml
+  with_items: "{{ system_users }}"

@@ -8,7 +8,7 @@
     name: "{{ bootstrap_user_fact['name'] }}"
     groups: "{{ bootstrap_user_fact['groups'] | default(omit)}}"
     home: "{{  bootstrap_user_fact['home'] | default('/home/' + bootstrap_user_fact['name']) }}"
-    state: "{{ bootstrap_user_fact['state'] | default('present') }}"
+    state: "{{ bootstrap_user_fact['state'] | default(omit) }}"
 
 - name: Set authorized keys for user
   authorized_key:
@@ -17,6 +17,7 @@
     state: present
     exclusive: True
   with_items: "{{ bootstrap_user_fact['keys'] }}"
+  when: bootstrap_user_fact['state'] | default('present') != 'absent'
 
 - name: Create sudoers
   template:

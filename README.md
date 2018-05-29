@@ -62,9 +62,9 @@ $ ansible-playbook play.yaml -b --extra-vars "ansible_sudo_pass=yourPassword"
 ```
 
 #### <a name="Table1"></a> Playbook variables
-| Variable name | Variables description | Default Value |
-| ------------- | --------------------- | ------------- |
-| name | user name | not specified |
-| password_sudo | ask for a password from the user when he uses sudo | not specified |
-| groups | the names of the groups to which the user will be added | not specified |
-| keys | ssh public keys for this user | not specified |
+| Variable name | Variables description |
+| ------------- | --------------------- |
+| name | user name |
+| password_sudo | ask for a password from the user when he uses sudo |
+| groups | the names of the groups to which the user will be added |
+| keys | ssh public keys for this user |

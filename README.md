@@ -19,7 +19,7 @@ $ ansible-galaxy install -r requirements.yml
 Clone this repository in your directory:
 
 ```sh
-$ git clone https://github.com/zedit/ansible-users
+$ git clone https://github.com/unicanova/ansible-users
 $ cd ansible-users
 ```
 Specify host addresses in the file /etc/ansible/hosts.  
@@ -29,7 +29,7 @@ In the playbook site.yml you can override varibales according to the [table](#Ta
 Execute command:  
 
 ```sh
-$ ansible-playbook play.yaml -b --extra-vars "ansible_sudo_pass=yourPassword"
+$ ansible-playbook site.yml -b --extra-vars "ansible_sudo_pass=yourPassword"
 ```
 #### <a name="Ex1"></a> Example requirements.yml:
 ```sh
@@ -51,7 +51,7 @@ $ ansible-playbook play.yaml -b --extra-vars "ansible_sudo_pass=yourPassword"
 ```sh
 - hosts: test
   roles:
-    - unicanova.ansible-users
+    - ansible-users
   vars:
     - system_users:
         - name: user
@@ -59,6 +59,8 @@ $ ansible-playbook play.yaml -b --extra-vars "ansible_sudo_pass=yourPassword"
           groups: sudo
           keys:
             - ssh-rsa AAA..... foo@machine
+        - name: user1
+          state: absent
 ```
 
 #### <a name="Table1"></a> Playbook variables
@@ -68,3 +70,4 @@ $ ansible-playbook play.yaml -b --extra-vars "ansible_sudo_pass=yourPassword"
 | password_sudo | ask for a password from the user when he uses sudo |
 | groups | the names of the groups to which the user will be added |
 | keys | ssh public keys for this user |
+| state | present - add user (not necesary, absent - remove user (necessary)) |

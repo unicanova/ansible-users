@@ -6,7 +6,8 @@
 - name: add user
   user:
     name: "{{ bootstrap_user_fact['name'] }}"
-    groups: "{{ bootstrap_user_fact['groups'] | default(omit)}}"
+    shell: "{{ bootstrap_user_fact['shell'] | default(omit) }}"
+    groups: "{{ bootstrap_user_fact['groups'] | default(omit) }}"
     home: "{{  bootstrap_user_fact['home'] | default('/home/' + bootstrap_user_fact['name']) }}"
     state: "{{ bootstrap_user_fact['state'] | default(omit) }}"
 
